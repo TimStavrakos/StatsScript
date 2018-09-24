@@ -15,8 +15,6 @@ def update_stats_sheet(exported_data):
     client.login()
     sheet = client.open_by_key('1OspJrWAgzBj6Pm6TPio8O6ba6c9VQMTt3EjlAjl805Q').sheet1
 
-    # Extract and print all of the values
-    #list_of_hashes = sheet.get_all_values()
     last_row = 0
     for num in range(5, 100):
         temp_cell = sheet.acell('A' + str(num))
@@ -24,7 +22,13 @@ def update_stats_sheet(exported_data):
             last_row = num
             break
 
-    test_row = sheet_collector.gather_data(exported_data)
-    for item in range(0, len(test_row)):
+    new_row = stats_collector.gather_data(exported_data)
+
+    '''We generate an entire row of data at once, but the connection times out
+        when trying to add an entire row to the google sheet. In order to upload
+        the row, we have to write each element of the array to it's corresponding
+        cell in the sheet.'''
+        
+    for item in range(0, len(new_row)):
             client.login()
-            sheet.update_cell(last_row, item+1, test_row[item])
+            sheet.update_cell(last_row, item+1, nwe_row[item])

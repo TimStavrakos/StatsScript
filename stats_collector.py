@@ -23,6 +23,8 @@ def gather_data(exported_data):
     win = ''
     side = ''
     sides = {team1: 'CT', team2: 'T'}
+
+    #Translation for map names
     map_list = {'de_dust2': 'Dust II',
                 'de_overpass': 'Overpass',
                 'de_cbble': 'Cobblestone',
@@ -31,6 +33,8 @@ def gather_data(exported_data):
                 'de_train': 'Train',
                 'de_nuke': 'Nuke',
                 'de_inferno': 'Inferno'}
+
+    #List of SteamIDs for players whose stats we want to grab
     player_list = ['76561198049003674',  #Tim
                     '76561198055203865', #Ryan
                     '76561198049273178', #Collin
@@ -76,6 +80,7 @@ def gather_data(exported_data):
             player = [ID, rating, trades, ADR, HS, KPR, KDD, kills, assists, deaths]
             player_stats.append(player)
 
+
     sheet = wb.get_sheet_by_name('Kills')
     for player in range(0,len(player_stats)):
         current_ID = player_stats[player][0]
@@ -115,6 +120,15 @@ def gather_data(exported_data):
 
     row_array = []
     row_array += map_stats
+
+    '''Our google sheet currently tracks 8 different players. These players are listed
+        in player_list in the same order they show up on the google sheet.
+        We loop through player_list, checking if this ID matches an ID we have in
+        player_stats, indicating that player was playing in this specific match.
+        If a player was not found to have been playing in this match we have to
+        make sure that they're cells on the google sheet stay empty so we put empty
+        strings where there stats would be. '''
+
     for num in range(0, 8):
         temp_ID = player_list[num]
         player_index = -1
