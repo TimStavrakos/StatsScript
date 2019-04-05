@@ -126,8 +126,8 @@ def gather_data(exported_data):
         We loop through player_list, checking if this ID matches an ID we have in
         player_stats, indicating that player was playing in this specific match.
         If a player was not found to have been playing in this match we have to
-        make sure that they're cells on the google sheet stay empty so we put empty
-        strings where there stats would be. '''
+        make sure that their cells on the google sheet stay empty so we put empty
+        strings where their stats would be. '''
 
     for num in range(0, 8):
         temp_ID = player_list[num]
